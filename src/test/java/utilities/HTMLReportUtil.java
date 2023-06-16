@@ -32,15 +32,7 @@ public class HTMLReportUtil {
 		return relative;
 	}
 
-	public static String testFailMobileTakeScreenshot(String imagePath) throws IOException {
-
-		File src = ((TakesScreenshot) GlobalUtil.getMDriver()).getScreenshotAs(OutputType.FILE);
-		File des = new File(imagePath);
-		FileUtils.copyFile(src, des);
-		System.out.println(des);
-		return des.getAbsolutePath();
-	}
-
+	
 	public static String failStringRedColor(String stepName) {
 		html = "<span style='color:red'><b>" + stepName + "</b></span>";
 		return html;

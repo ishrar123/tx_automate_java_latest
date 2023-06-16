@@ -38,29 +38,18 @@ public class CommonSettings {
 	private String bugToolUserName;
 	private String bugToolPassword;
 	private String bugToolProjectName;
-	private String restURL;
-	private String restAccessToken;
-	private Double androidVersion;
-	private String androidName;
-	private String androidID;
-	private String androidBrowser;
-	private String androidCloudDeviceID;
+//	private String restURL;
+//	private String restAccessToken;
+//	private Double androidVersion;
+//	private String androidName;
+//	private String androidID;
+//	private String androidBrowser;
+//	private String androidCloudDeviceID;
+//
+//	@SuppressWarnings("rawtypes")
+//	private static AndroidDriver mdriver;
 
-	@SuppressWarnings("rawtypes")
-	private static AndroidDriver mdriver;
-
-	/**
-	 * @param projectName
-	 * @param appType
-	 * @param appEnviornment
-	 * @param emailOutput
-	 * @param emailId
-	 * @param htmlReport
-	 * @param xlsReport
-	 * @param testLogs
-	 * @param defectMgmt
-	 * @param testMgmt
-	 */
+	
 	public CommonSettings(String projectName, String appType, String appEnviornment, String emailOutput, String emailId, String htmlReport, String xlsReport, String testLogs,
 			String defectMgmt, String testMgmt) {
 		super();
@@ -74,121 +63,86 @@ public class CommonSettings {
 		this.testLogs = testLogs;
 	}
 
-	/**
-	 * 
-	 */
+	
 	public CommonSettings() {
 		super();
 	}
 
-	/**
-	 * @param projectName
-	 */
+	
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String getProjectName() {
 		return projectName;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String getAppType() {
 		return appType;
 	}
 
-	/**
-	 * @param appType
-	 */
+	
 	public void setAppType(String appType) {
 		this.appType = appType;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String getAppEnviornment() {
 		return appEnviornment;
 	}
 
-	/**
-	 * @param appEnviornment
-	 */
+
 	public void setAppEnviornment(String appEnviornment) {
 		this.appEnviornment = appEnviornment;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String getEmailOutput() {
 		return emailOutput;
 	}
 
-	/**
-	 * @param emailOutput
-	 */
-	public void setEmailOutput(String emailOutput) {
+		public void setEmailOutput(String emailOutput) {
 		this.emailOutput = emailOutput;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String getEmailIds() {
 		return emailId;
 	}
 
-	/**
-	 * @param emailId
-	 */
+	
 	public void setEmailIds(String emailId) {
 		this.emailId = emailId;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String getHtmlReport() {
 		return htmlReport;
 	}
 
-	/**
-	 * @param htmlReport
-	 */
+	
 	public void setHtmlReport(String htmlReport) {
 		this.htmlReport = htmlReport;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String getXlsReport() {
 		return xlsReport;
 	}
 
-	/**
-	 * @param xlsReport
-	 */
+	
 	public void setXlsReport(String xlsReport) {
 		this.xlsReport = xlsReport;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String getTestLogs() {
 		return testLogs;
 	}
 
-	/**
-	 * @param testLogs
-	 */
+	
 	public void setTestLogs(String testLogs) {
 		this.testLogs = testLogs;
 	}
@@ -245,10 +199,7 @@ public class CommonSettings {
 		return Browser;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public AndroidDriver getdriver() {
-		return mdriver;
-	}
+	
 
 	public void setBrowser(String browser) {
 		Browser = browser;
@@ -382,59 +333,59 @@ public class CommonSettings {
 		this.ManageToolName = manageToolName;
 	}
 
-	public String getRestURL() {
-		return restURL;
-	}
-
-	public void setRestURL(String restURL) {
-		this.restURL = restURL;
-	}
-
-	public Double getAndroidVersion() {
-		return androidVersion;
-	}
-
-	public void setAndroidVersion(Double androidVersion) {
-		this.androidVersion = androidVersion;
-	}
-
-	public String getAndroidName() {
-		return androidName;
-	}
-
-	public void setAndroidName(String androidName) {
-		this.androidName = androidName;
-	}
-
-	public String getAndroidID() {
-		return androidID;
-	}
-
-	public void setAndroidID(String androidID) {
-		this.androidID = androidID;
-	}
-
-	public String getAndroidBrowser() {
-		return androidBrowser;
-	}
-
-	public void setAndroidBrowser(String androidBrowser) {
-		this.androidBrowser = androidBrowser;
-	}
-
-	public String getRestAccessToken() {
-		return restAccessToken;
-	}
-
-	public void setRestAccessToken(String restAccessToken) {
-		this.restAccessToken = restAccessToken;
-	}
-
-	public String getAndroidCloudDeviceID() {
-		return androidCloudDeviceID;
-	}
-
-	public void setAndroidCloudDeviceID(String androidCloudDeviceID) {
-		this.androidCloudDeviceID = androidCloudDeviceID;
-	}
+//	public String getRestURL() {
+//		return restURL;
+//	}
+//
+//	public void setRestURL(String restURL) {
+//		this.restURL = restURL;
+//	}
+//
+//	public Double getAndroidVersion() {
+//		return androidVersion;
+//	}
+//
+//	public void setAndroidVersion(Double androidVersion) {
+//		this.androidVersion = androidVersion;
+//	}
+//
+//	public String getAndroidName() {
+//		return androidName;
+//	}
+//
+//	public void setAndroidName(String androidName) {
+//		this.androidName = androidName;
+//	}
+//
+//	public String getAndroidID() {
+//		return androidID;
+//	}
+//
+//	public void setAndroidID(String androidID) {
+//		this.androidID = androidID;
+//	}
+//
+//	public String getAndroidBrowser() {
+//		return androidBrowser;
+//	}
+//
+//	public void setAndroidBrowser(String androidBrowser) {
+//		this.androidBrowser = androidBrowser;
+//	}
+//
+//	public String getRestAccessToken() {
+//		return restAccessToken;
+//	}
+//
+//	public void setRestAccessToken(String restAccessToken) {
+//		this.restAccessToken = restAccessToken;
+//	}
+//
+//	public String getAndroidCloudDeviceID() {
+//		return androidCloudDeviceID;
+//	}
+//
+//	public void setAndroidCloudDeviceID(String androidCloudDeviceID) {
+//		this.androidCloudDeviceID = androidCloudDeviceID;
+//	}
 }

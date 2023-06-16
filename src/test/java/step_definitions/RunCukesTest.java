@@ -19,9 +19,9 @@ import utilities.ExtentUtil;
 import utilities.GlobalUtil;
 import utilities.KeywordUtil;
 import utilities.LogUtil;
-import utilities.TestLinkUtil;
 
-@CucumberOptions(features = "classpath:features", plugin = { "pretty", "html:target/cucumber-html-report.html", "json:target/cucumber.json" }, tags = "", monochrome = true
+@CucumberOptions(features = "classpath:features", plugin = { "pretty", "html:target/cucumber-html-report.html", "json:target/cucumber.json" },
+		tags = "@ACS_05", monochrome = true
 
 )
 public class RunCukesTest extends AbstractTestNGCucumberTests {
@@ -49,7 +49,6 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
 	@BeforeClass
 	public void onStart() {
 		try {
-			// Get all the common setting from excel file that are required for
 
 			ExtentUtil.extentInit(System.getProperty("user.dir") + ConfigReader.getValue("extentReportPath"));
 
@@ -65,10 +64,8 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
 			String url = "";
 			url = GlobalUtil.getCommonSettings().getUrl();
 
-			String deviceID = "";
-			deviceID = GlobalUtil.getCommonSettings().getAndroidCloudDeviceID();
+			
 
-			LogUtil.infoLog(getClass(), "Device ID is : " + deviceID);
 
 			if (browser == null)
 				browser = ConfigReader.getValue("defaultBrowser");
@@ -76,16 +73,7 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
 			if (executionEnv == null)
 				executionEnv = ConfigReader.getValue("defaultExecutionEnvironment");
 
-			// testlink config
-			if (GlobalUtil.getCommonSettings().getManageToolName().equalsIgnoreCase("Testlink")) {
-				TestLinkUtil.DEV_KEY = GlobalUtil.getCommonSettings().getTestlinkAPIKey();
-				TestLinkUtil.SERVER_URL = "http://" + GlobalUtil.getCommonSettings().getTestLinkHostName() + "/testlink-1.9.16/lib/api/xmlrpc/v1/xmlrpc.php";
-				TestLinkUtil.projectName = GlobalUtil.getCommonSettings().getTestlinkProjectName();
-				TestLinkUtil.testPlanName = GlobalUtil.getCommonSettings().getTestlinkPlanName();
-				TestLinkUtil.buildName = GlobalUtil.getCommonSettings().getBuildNumber();
-				TestLinkUtil.needUpdate = GlobalUtil.getCommonSettings().getTestlinkTool();
-				GlobalUtil.testlinkapi = new TestLinkUtil();
-			}
+		
 
 			if (GlobalUtil.getCommonSettings().getManageToolName().equalsIgnoreCase("Jira")) {
 				// Jira Test management config
@@ -95,7 +83,6 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
 				JiraUtil.ZAPI_ACCESS_KEY = ConfigReader.getValue("zapi_access_key");
 				JiraUtil.ZAPI_SECRET_KEY = ConfigReader.getValue("zapi_secret_key");
 
-				// remaing details will instailized when Jira is selected a bug tracking tool
 			} else
 				GlobalUtil.getCommonSettings().setTestlinkTool("NO");
 
@@ -124,8 +111,7 @@ public class RunCukesTest extends AbstractTestNGCucumberTests {
 			LogUtil.infoLog(getClass(), "\n\n+===========================================================================================================+");
 			LogUtil.infoLog(getClass(), " Suite started" + " at " + new Date());
 			LogUtil.infoLog(getClass(), "Suite Execution For Web application on environment : " + executionEnv);
-			LogUtil.infoLog(getClass(), "Suite Execution For Android mobile application on version: " + GlobalUtil.getCommonSettings().getAndroidVersion());
-			LogUtil.infoLog(getClass(), "Suite Execution For RestAPI on URL: " + GlobalUtil.getCommonSettings().getRestURL());
+
 			LogUtil.infoLog(getClass(), "\n\n+===========================================================================================================+");
 
 		} catch (Exception e) {

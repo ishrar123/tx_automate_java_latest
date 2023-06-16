@@ -32,26 +32,16 @@ import org.testng.Assert;
 
 import com.google.common.base.Function;
 
-/**
- * A factory for creating Driver objects.
- */
+
 public class DriverFactory {
 
-	/** The element. */
 	static WebElement element = null;
 
-	/** The all elms. */
 	static List<WebElement> allElms = null;
 
-	/** The Dummy string. */
 	static String DummyString;
 
-	/**
-	 * Go to URL.
-	 *
-	 * @param url
-	 *        the url
-	 */
+	
 	public static void goToURL(String url) {
 		try {
 			if (GlobalUtil.getDriver() == null) {
@@ -68,11 +58,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Gets the current URL.
-	 *
-	 * @return the current URL
-	 */
+	
 	public static String getCurrentURL() {
 		String currentURL = null;
 		try {
@@ -90,14 +76,7 @@ public class DriverFactory {
 		return currentURL;
 	}
 
-	/**
-	 * Find element by xpath.
-	 *
-	 * @param xpathExpression
-	 *        the xpath expression
-	 * 
-	 * @return the web element
-	 */
+	
 	public static WebElement FindElementByXpath(String xpathExpression) {
 		try {
 			WebDriverWait wait = new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL);
@@ -109,14 +88,7 @@ public class DriverFactory {
 		return element;
 	}
 
-	/**
-	 * Find elements by xpath.
-	 *
-	 * @param xpathExpression
-	 *        the xpath expression
-	 * 
-	 * @return the list
-	 */
+	
 	public static List<WebElement> FindElementsByXpath(String xpathExpression) {
 
 		try {
@@ -129,9 +101,7 @@ public class DriverFactory {
 		return allElms;
 	}
 
-	/**
-	 * Quit driver.
-	 */
+	
 	public static void quitDriver() {
 		try {
 			if (GlobalUtil.getDriver() == null) {
@@ -144,17 +114,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Test fail take screenshot.
-	 *
-	 * @param imagePath
-	 *        the image path
-	 * 
-	 * @return the string
-	 * 
-	 * @throws IOException
-	 *         Signals that an I/O exception has occurred.
-	 */
+	
 	public static String testFailTakeScreenshot(String imagePath) throws IOException {
 
 		File src = ((TakesScreenshot) GlobalUtil.getDriver()).getScreenshotAs(OutputType.FILE);
@@ -169,14 +129,7 @@ public class DriverFactory {
 		return relative;
 	}
 
-	/**
-	 * Take screenshot.
-	 *
-	 * @param screenshotFilePath
-	 *        the screenshot file path
-	 * 
-	 * @return the byte[]
-	 */
+	
 	public static byte[] takeScreenshot(String screenshotFilePath) {
 		try {
 			byte[] screenshot = ((TakesScreenshot) GlobalUtil.getDriver()).getScreenshotAs(OutputType.BYTES);
@@ -204,14 +157,7 @@ public class DriverFactory {
 		return src;
 	}
 
-	/**
-	 * Check default execution variables.
-	 *
-	 * @param executionVariableName
-	 *        the execution variable name
-	 * @param defaultValue
-	 *        the default value
-	 */
+	
 	public static void checkDefaultExecutionVariables(String executionVariableName, String defaultValue, String variableName) {
 		if (executionVariableName == null || executionVariableName.isEmpty()) {
 			executionVariableName = defaultValue;
@@ -219,14 +165,7 @@ public class DriverFactory {
 		LogUtil.infoLog(DriverFactory.class, "Setting " + variableName + " as:  " + executionVariableName);
 	}
 
-	/**
-	 * Wait for clickable web element.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return the web element
-	 */
+	
 	public static WebElement waitForClickable(By locator) {
 		try {
 			WebDriverWait wait = new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL);
@@ -239,14 +178,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Wait for visible web element.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return web element
-	 */
+	
 	public static WebElement waitForVisible(By locator) {
 		try {
 			WebDriverWait wait = new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL);
@@ -259,12 +191,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Click void.
-	 *
-	 * @param locator
-	 *        the locator
-	 */
+	
 	public static void click(By locator, String logStep) {
 		try {
 			element = waitForClickable(locator);
@@ -283,14 +210,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Input text void.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param data
-	 *        the data
-	 */
+	
 	public static void inputText(By locator, String data, String logStep) {
 		try {
 			element = waitForVisible(locator);
@@ -310,14 +230,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Gets element text.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return element text
-	 */
+	
 	public static String getElementText(By locator, String logStep) {
 		String elementText = null;
 		try {
@@ -338,16 +251,7 @@ public class DriverFactory {
 		return elementText;
 	}
 
-	/**
-	 * Compare text.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param expectedText
-	 *        the expected text
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean compareText(By locator, String expectedText, String logStep) {
 		boolean flag = false;
 		try {
@@ -364,68 +268,30 @@ public class DriverFactory {
 		return flag;
 	}
 
-	/**
-	 * Wait for invisible.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean waitForInvisible(By locator) {
 		WebDriverWait wait = new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL);
 		return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 	}
 
-	/**
-	 * Wait for present.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return the web element
-	 */
+	
 	public static WebElement waitForPresent(By locator) {
 		WebDriverWait wait = new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL);
 		wait.ignoring(ElementNotInteractableException.class);
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 
-	/**
-	 * Wait for visible ignore stale element.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return the web element
-	 */
-	public static WebElement waitForVisibleIgnoreStaleElement(By locator) {
+		public static WebElement waitForVisibleIgnoreStaleElement(By locator) {
 		WebDriverWait wait = new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL);
 		wait.ignoring(StaleElementReferenceException.class);
 		wait.ignoring(ElementNotInteractableException.class);
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
-	/**
-	 * Find with fluent wait.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param secondsTimeout
-	 *        the seconds timeout
-	 * @param pollingMil
-	 *        the polling mil
-	 * 
-	 * @return the web element
-	 * 
-	 * @throws Exception
-	 *         the exception
-	 */
+	
 	public static WebElement findWithFluentWait(final By locator, int secondsTimeout, int pollingMil) throws Exception {
 		GlobalUtil.getDriver().manage().timeouts().implicitlyWait(CommonConstants.DEFAULT_WAIT_TIME_SMALL, TimeUnit.SECONDS);// Because if implicit wait is
-		// set then fluent wait will
-		// not work
-		try {
+				try {
 			Wait<WebDriver> wait = new FluentWait<WebDriver>(GlobalUtil.getDriver()).withTimeout(Duration.ofSeconds(secondsTimeout)).pollingEvery(Duration.ofMillis(pollingMil))
 					.ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class).ignoring(ElementNotInteractableException.class)
 					.ignoring(WebDriverException.class);
@@ -445,22 +311,10 @@ public class DriverFactory {
 		return element;
 	}
 
-	/**
-	 * Find with fluent wait.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return the web element
-	 * 
-	 * @throws Exception
-	 *         the exception
-	 */
-	@SuppressWarnings("deprecation")
+		@SuppressWarnings("deprecation")
 	public static WebElement findWithFluentWait(final By locator) throws Exception {
 		GlobalUtil.getDriver().manage().timeouts().implicitlyWait(CommonConstants.DEFAULT_WAIT_TIME_SMALL, TimeUnit.SECONDS); // Because if implicit wait
-		// is set then fluent wait
-		// will not work
+		
 
 		try {
 			Wait<WebDriver> wait = new FluentWait<>(GlobalUtil.getDriver()).withTimeout(CommonConstants.DEFAULT_WAIT_TIME_SMALL, TimeUnit.SECONDS)
@@ -483,31 +337,12 @@ public class DriverFactory {
 		return element;
 	}
 
-	/**
-	 * Gets the web element.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return the web element
-	 * 
-	 * @throws Exception
-	 *         the exception
-	 */
+	
 	public static WebElement getWebElement(By locator) throws Exception {
 		return findWithFluentWait(locator);
 	}
 
-	/**
-	 * Click on web element.
-	 *
-	 * @param webElement
-	 *        the web element
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean clickOnWebElement(WebElement webElement, String logStep) {
 
 		WebDriverWait wait = new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL);
@@ -521,16 +356,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Click on element position.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean clickOnElementPosition(By locator, String logStep) {
 		allElms = GlobalUtil.getDriver().findElements(locator);
 		if (allElms.isEmpty()) {
@@ -544,16 +370,7 @@ public class DriverFactory {
 		return true;
 	}
 
-	/**
-	 * Click JS.
-	 *
-	 * @param webElement
-	 *        the web element
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean clickJS(WebElement webElement, String logStep) {
 		if (webElement == null) {
 			return false;
@@ -565,50 +382,28 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Accept alert.
-	 *
-	 * @return true, if successful
-	 */
+	
 	public static boolean acceptAlert() {
 		Alert alert = GlobalUtil.getDriver().switchTo().alert();
 		alert.accept();
 		return true;
 	}
 
-	/**
-	 * Switch to window.
-	 *
-	 * @return true, if successful
-	 */
+	
 	public static boolean switchToWindow() {
 		ArrayList<String> tabs2 = new ArrayList<String>(GlobalUtil.getDriver().getWindowHandles());
 		GlobalUtil.getDriver().switchTo().window(tabs2.get(1));
 		return true;
 	}
 
-	/**
-	 * Gets the image title.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return the image title
-	 */
+	
 	public static String getImageTitle(By locator) {
 		element = waitForVisible(locator);
 		return element.getAttribute("title");
 
 	}
 
-	/**
-	 * Gets the list elements.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return the list elements
-	 */
+	
 	public static List<WebElement> getListElements(By locator) {
 		try {
 			findWithFluentWait(locator, 60, 300);
@@ -619,16 +414,7 @@ public class DriverFactory {
 		return GlobalUtil.getDriver().findElements(locator);
 	}
 
-	/**
-	 * Gets the list elements.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return the list elements
-	 */
+	
 	public static List<WebElement> getListElements(By locator, String logStep) {
 		try {
 			findWithFluentWait(locator, 60, 300);
@@ -640,20 +426,7 @@ public class DriverFactory {
 		return GlobalUtil.getDriver().findElements(locator);
 	}
 
-	/**
-	 * Gets the list elements.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param logStep
-	 *        the log step
-	 * @param waitTimeInSec
-	 *        the wait time in seconds
-	 * @param poolingtimeinMilisec
-	 *        the pooling time in mili seconds
-	 * 
-	 * @return the list elements
-	 */
+	
 	public static List<WebElement> getListElements(By locator, String logStep, int waitTimeInSec, int poolingtimeinMilisec) {
 		try {
 			findWithFluentWait(locator, waitTimeInSec, poolingtimeinMilisec);
@@ -666,14 +439,7 @@ public class DriverFactory {
 
 	}
 
-	/**
-	 * Checks if is web element not present.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return true, if is web element not present
-	 */
+	
 	public static boolean isWebElementNotPresent(By locator) {
 		Boolean flag = false;
 		try {
@@ -685,29 +451,13 @@ public class DriverFactory {
 		return flag;
 	}
 
-	/**
-	 * Press enter.
-	 *
-	 * @param locator
-	 *        the locator
-	 */
+	
 	public static void pressEnter(By locator) {
 		element = waitForVisible(locator);
 		element.sendKeys(Keys.ENTER);
 	}
 
-	/**
-	 * Input text JS.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param data
-	 *        the data
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean inputTextJS(By locator, String data, String logStep) {
 		boolean flag = false;
 		try {
@@ -723,29 +473,13 @@ public class DriverFactory {
 		return flag;
 	}
 
-	/**
-	 * Clear input.
-	 *
-	 * @param locator
-	 *        the locator
-	 */
+	
 	public static void clearInput(By locator) {
 		element = waitForVisible(locator);
 		element.clear();
 	}
 
-	/**
-	 * Select by index.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param index
-	 *        the index
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean selectByIndex(By locator, int index, String logStep) {
 		boolean flag = false;
 		try {
@@ -763,18 +497,7 @@ public class DriverFactory {
 		return flag;
 	}
 
-	/**
-	 * Select by value.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param value
-	 *        the value
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean selectByValue(By locator, String value, String logStep) {
 		boolean flag = false;
 		try {
@@ -792,18 +515,7 @@ public class DriverFactory {
 		return flag;
 	}
 
-	/**
-	 * Select by visible text.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param value
-	 *        the value
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean selectByVisibleText(By locator, String value, String logStep) {
 		try {
 			Select sel = new Select(GlobalUtil.getDriver().findElement(locator));
@@ -817,18 +529,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Verify dropdown selected value.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param data
-	 *        the data
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean verifyDropdownSelectedValue(By locator, String data, String logStep) {
 		String defSelectedVal = null;
 		try {
@@ -841,16 +542,7 @@ public class DriverFactory {
 		return defSelectedVal.trim().equals(data.trim());
 	}
 
-	/**
-	 * Double click.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param logStep
-	 *        the log step
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean doubleClick(By locator, String logStep) {
 		boolean result = false;
 		try {
@@ -877,14 +569,7 @@ public class DriverFactory {
 		return result;
 	}
 
-	/**
-	 * Switch to frame.
-	 *
-	 * @param frameName
-	 *        the frame name
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean switchToFrame(String frameName) {
 		try {
 			GlobalUtil.getDriver().switchTo().frame(frameName);
@@ -896,14 +581,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Switch to frame by web element.
-	 *
-	 * @param locator
-	 *        the locator
-	 * 
-	 * @return true, if successful
-	 */
+	
 	public static boolean switchToFrameByWebElement(By locator) {
 		try {
 			element = GlobalUtil.getDriver().findElement(locator);
@@ -916,16 +594,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Gets the element property.
-	 *
-	 * @param locator
-	 *        the locator
-	 * @param attributeName
-	 *        the attribute name
-	 * 
-	 * @return the element property
-	 */
+	
 	public static String getElementProperty(By locator, String attributeName) {
 		String attribute = null;
 		try {
@@ -937,9 +606,7 @@ public class DriverFactory {
 		return attribute;
 	}
 
-	/**
-	 * Refresh page.
-	 */
+	
 	public static void refreshPage() {
 		try {
 			GlobalUtil.getDriver().navigate().refresh();
@@ -948,9 +615,7 @@ public class DriverFactory {
 		}
 	}
 
-	/**
-	 * Wait for Ajax calls to complete.
-	 */
+	
 	public static void waitForAjax() {
 		new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL).until(new ExpectedCondition<Boolean>() {
 
@@ -962,9 +627,7 @@ public class DriverFactory {
 		});
 	}
 
-	/**
-	 * Wait for DOM load to complete.
-	 */
+	
 	public static void waitForDOMLoadToComplete() {
 		new WebDriverWait(GlobalUtil.getDriver(), CommonConstants.DEFAULT_WAIT_TIME_SMALL).until(new ExpectedCondition<Boolean>() {
 

@@ -24,25 +24,18 @@ import com.thed.zephyr.cloud.rest.client.JwtGenerator;
 public class CreateCycleAndAddTests {
 
 	public static void main(String[] args) throws Exception {
-		// Replace zephyr baseurl <ZAPI_Cloud_URL> shared with the user for ZAPI Cloud
 		String zephyrBaseUrl = "https://prod-api.zephyr4jiracloud.com/connect";
-		// zephyr accessKey , we can get from Addons >> zapi section
 		String accessKey = "Njc1NTJjZTItMzVkZC0zYmEwLWI3N2UtZmQ3YWNkZDAwNTM2IGFkbWluIGJpbmR1";
-		// zephyr secretKey , we can get from Addons >> zapi section
 		String secretKey = "0GYaR3cNz-kw8tuQDKNBpirb-u6FnTIqtJDX-YBxCUw";
-		// Jira UserName
 		String userName = "bindu.poreddy@testingxperts.com";
 
 		ZFJCloudRestClient client = ZFJCloudRestClient.restBuilder(zephyrBaseUrl, accessKey, secretKey, userName).build();
-		// ZFJ
 
-		/** Declare the Variables here **/
 		Long projectId = 10000l;
 		String cycleName = "Test Cycle -- API DEMO";
 		String cycleDescription = "Created by ZAPI CLOUD API";
 		String createCycleUri = zephyrBaseUrl + "/public/rest/api/1.0/cycle";
 
-		/** Cycle Object created - DO NOT EDIT **/
 		JSONObject createCycleObj = new JSONObject();
 		createCycleObj.put("name", cycleName);
 		createCycleObj.put("description", cycleDescription);
@@ -59,10 +52,8 @@ public class CreateCycleAndAddTests {
 		String cycleID = cc.createCycle(createCycleUri, client, accessKey, cycleJSON);
 		System.out.println("Cycle Created with Cycle Id :" + cycleID);
 
-		/**
-		 * Add tests to Cycle IssueId's
-		 */
-
+		
+		
 		String addTestsUri = zephyrBaseUrl + "/public/rest/api/1.0/executions/add/cycle/" + cycleID;
 		String[] issueIds = { "TES01-6" }; // Issue Id's to be added to Test Cycle, add more issueKeys separated by comma
 

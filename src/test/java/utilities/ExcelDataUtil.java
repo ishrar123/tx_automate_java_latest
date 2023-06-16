@@ -241,27 +241,27 @@ public class ExcelDataUtil {
 			val = sheet.getRow(37).getCell(1).getStringCellValue();
 			commonSettings.setJiraProjectID(val);
 
-			val = sheet.getRow(39).getCell(1).getStringCellValue();
-			commonSettings.setRestURL(val);
-
-			val = sheet.getRow(40).getCell(1).getStringCellValue();
-			commonSettings.setRestAccessToken(val);
-
-			Double val1 = sheet.getRow(43).getCell(1).getNumericCellValue();
-			commonSettings.setAndroidVersion(val1);
-
-			val = sheet.getRow(44).getCell(1).getStringCellValue();
-			commonSettings.setAndroidName(val);
-
-			val = sheet.getRow(45).getCell(1).getStringCellValue();
-			commonSettings.setAndroidID(val);
-
-			val = sheet.getRow(46).getCell(1).getStringCellValue();
-			commonSettings.setAndroidBrowser(val);
-
-			val = sheet.getRow(47).getCell(1).getStringCellValue();
-			commonSettings.setAndroidCloudDeviceID(val);
-
+//			val = sheet.getRow(39).getCell(1).getStringCellValue();
+//			commonSettings.setRestURL(val);
+//
+//			val = sheet.getRow(40).getCell(1).getStringCellValue();
+//			commonSettings.setRestAccessToken(val);
+//
+//			Double val1 = sheet.getRow(43).getCell(1).getNumericCellValue();
+//			commonSettings.setAndroidVersion(val1);
+//
+//			val = sheet.getRow(44).getCell(1).getStringCellValue();
+//			commonSettings.setAndroidName(val);
+//
+//			val = sheet.getRow(45).getCell(1).getStringCellValue();
+//			commonSettings.setAndroidID(val);
+//
+//			val = sheet.getRow(46).getCell(1).getStringCellValue();
+//			commonSettings.setAndroidBrowser(val);
+//
+//			val = sheet.getRow(47).getCell(1).getStringCellValue();
+//			commonSettings.setAndroidCloudDeviceID(val);
+//
 		} // End try
 		catch (Exception e) {
 			LogUtil.errorLog(ExcelDataUtil.class, EXCEPTIONCAUGHT, e);

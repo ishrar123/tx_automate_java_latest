@@ -27,7 +27,6 @@ public class GlobalUtil {
 
 	private static CommonSettings commonSettings = new CommonSettings();
 	private static WebDriver driver = null;
-	public static AndroidDriver<MobileElement> mdriver;
 	private static int totalSuites = 0;
 	private static boolean suitesRunStarted = false;
 	private static int lastRunId = 0;
@@ -49,7 +48,6 @@ public class GlobalUtil {
 	static String clientFullName = "FullName";
 	static String clientEmail = "Email";
 	public static String result_FolderName = System.getProperty("user.dir") + "/target/cucumber-html-report";
-	public static TestLinkUtil testlinkapi;
 	public static JiraUtil jiraapi;
 	public static String errorMsg;
 	public static Throwable e;
@@ -60,6 +58,7 @@ public class GlobalUtil {
 	public static final String PROPERTYCLIENTKEY = "Client";
 	public static final String PROPERTYAGENTKEY = "Agent";
 	public static final String PROPERTYNOTEKEY = "Note";
+	public static TestLinkUtil testlinkapi;
 
 	protected static final HashMap<String, String> popupCurrentData = new HashMap<String, String>();
 
@@ -98,137 +97,92 @@ public class GlobalUtil {
 		}
 	}
 
-	// =======================
-	/**
-	 * @return
-	 */
-
-	/**
-	 * @return
-	 */
+	
 	public static CommonSettings getCommonSettings() {
 		return commonSettings;
 	}
 
-	/**
-	 * @param commonSettings
-	 */
+	
 	public static void setCommonSettings(CommonSettings commonSettings) {
 		GlobalUtil.commonSettings = commonSettings;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public static int getTotalSuites() {
 		return totalSuites;
 	}
 
-	/**
-	 * @param totalSuites
-	 */
+	
 	public static void setTotalSuites(int totalSuites) {
 		GlobalUtil.totalSuites = totalSuites;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public static boolean isSuitesRunStarted() {
 		return suitesRunStarted;
 	}
 
-	/**
-	 * @param suitesRunStarted
-	 */
+	
 	public static void setSuitesRunStarted(boolean suitesRunStarted) {
 		GlobalUtil.suitesRunStarted = suitesRunStarted;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public static int getLastRunId() {
 		return lastRunId;
 	}
 
-	/**
-	 * @param lastRunId
-	 */
+	
 	public static void setLastRunId(int lastRunId) {
 		GlobalUtil.lastRunId = lastRunId;
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public static Exception getTestException() {
 		return testException;
 	}
 
-	/**
-	 * @param testException
-	 */
+	
 	public static void setTestException(Exception testException) {
 		GlobalUtil.testException = testException;
 	}
 
-	/**
-	 * @return the currentBrowser
-	 */
+	
 	public static String getCurrentBrowser() {
 		return currentBrowser;
 	}
 
-	/**
-	 * @param currentBrowser
-	 *        the currentBrowser to set
-	 */
+	
 	public static void setCurrentBrowser(String currentBrowser) {
 		GlobalUtil.currentBrowser = currentBrowser;
 	}
 
-	/**
-	 * @return the currentSuiteName
-	 */
+	
 	public static String getCurrentSuiteName() {
 		return currentSuiteName;
 	}
 
-	/**
-	 * @param currentSuiteName
-	 *        the currentSuiteName to set
-	 */
+	
 	public static void setCurrentSuiteName(String currentSuiteName) {
 		GlobalUtil.currentSuiteName = currentSuiteName;
 	}
 
-	/**
-	 * @return the currentUserEmail
-	 */
+	
 	public static String getCurrentUserEmail() {
 		return currentUserEmail;
 	}
 
-	/**
-	 * @param currentUserEmail
-	 *        the currentUserEmail to set
-	 */
+	
 	public static void setCurrentUserEmail(String currentUserEmail) {
 		GlobalUtil.currentUserEmail = currentUserEmail;
 	}
 
-	/**
-	 * @return the currentUserType
-	 */
+	
 	public static String getCurrentUserType() {
 		return currentUserType;
 	}
 
-	/**
-	 * @param currentUserType
-	 *        the currentUserType to set
-	 */
+	
 	public static void setCurrentUserType(String currentUserType) {
 		GlobalUtil.currentUserType = currentUserType;
 	}
@@ -237,19 +191,7 @@ public class GlobalUtil {
 		return driver;
 	}
 
-	public static AndroidDriver<?> getMDriver() {
-		return mdriver;
-	}
-
-	@SuppressWarnings("unchecked")
-	public static void setMDriver(AndroidDriver<?> Mdriver) {
-		GlobalUtil.mdriver = (AndroidDriver<MobileElement>) Mdriver;
-	}
-
-	/**
-	 * @param driver
-	 *        the driver to set
-	 */
+		
 	public static void setDriver(WebDriver driver) {
 		GlobalUtil.driver = driver;
 	}

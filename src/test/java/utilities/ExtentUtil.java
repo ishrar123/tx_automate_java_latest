@@ -96,41 +96,10 @@ public class ExtentUtil {
 		}
 	}
 
-	public static void attachMobileScreenshotToReportOnFailure(Scenario scenario) {
-		try {
-			String scFileName = "ScreenShot_" + Hooks.executingTagName.replace("@", "") + "_" + KeywordUtil.currentDateTime() + ".png";
-			BufferUtilSuiteLevel.screenshotFilePath = CommonConstants.generalFolderPath + CommonConstants.screenShotFolderName + File.separator + scFileName;
-			String imagePath = HTMLReportUtil.testFailMobileTakeScreenshot(BufferUtilSuiteLevel.screenshotFilePath);
-
-			InputStream is = new FileInputStream(imagePath);
-			byte[] imageBytes = IOUtils.toByteArray(is);
-
-			Thread.sleep(2000);
-			String base64 = Base64.getEncoder().encodeToString(imageBytes);
-
-			ExtentUtil.logger.get().fail(MarkupHelper.createLabel("Failed at Point: ", ExtentColor.RED));
-
-			if (GlobalUtil.errorMsg != null) {
-//				logger.get().log(Status.FAIL, HTMLReportUtil.failStringRedColor(GlobalUtil.errorMsg));
-//				logger.get().log(Status.FAIL, HTMLReportUtil.showBase64Image("data:image/png;base64," + base64));
-//				logger.get().addScreenCaptureFromBase64String(base64);
-				logger.get().log(Status.FAIL, HTMLReportUtil.failStringRedColor(GlobalUtil.errorMsg), MediaEntityBuilder.createScreenCaptureFromBase64String(base64).build());
-			} else {
-//				logger.get().log(Status.FAIL, HTMLReportUtil.failStringRedColor(GlobalUtil.e.toString()));
-//				logger.get().log(Status.FAIL, HTMLReportUtil.showBase64Image("data:image/png;base64," + base64));
-//				logger.get().addScreenCaptureFromBase64String(base64);
-				logger.get().log(Status.FAIL, HTMLReportUtil.failStringRedColor(GlobalUtil.e.toString()), MediaEntityBuilder.createScreenCaptureFromBase64String(base64).build());
-			}
-
-			scenario.attach(imageBytes, "image/png", "Failed Screenshot");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
+		/**
 	 * Open report on suite complete.
 	 */
+	@SuppressWarnings("deprecation")
 	public static void openReportOnSuiteComplete(String generalPath, String backUpFolderName, String backUpReportName) {
 		BufferUtilSuiteLevel.extentHtmlreportWithNameAndPath = generalPath + backUpFolderName + File.separator + backUpReportName;
 		File extentReport = new File(BufferUtilSuiteLevel.extentHtmlreportWithNameAndPath);

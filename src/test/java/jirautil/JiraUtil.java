@@ -30,11 +30,7 @@ import net.rcarz.jiraclient.Field;
 import net.rcarz.jiraclient.Issue;
 import net.rcarz.jiraclient.JiraClient;
 import net.rcarz.jiraclient.JiraException;
-import utilities.ExtentUtil;
-import utilities.GlobalUtil;
-import utilities.HTMLReportUtil;
-import utilities.LogUtil;
-import utilities.TestLinkUtil;
+import utilities.*;
 
 /**
  * <h1>JIRAUtility class</h1> <br>
@@ -151,7 +147,6 @@ public class JiraUtil {
 	 * BaseURL. <br>
 	 * <br>
 	 * 
-	 * @param projectKey
 	 *        - Specify the project key generated while creating the project. <br>
 	 *        <br>
 	 * @param summary
@@ -160,10 +155,8 @@ public class JiraUtil {
 	 * @param description
 	 *        - Specify the description to be added to the new bug. <br>
 	 *        <br>
-	 * @param reporter
 	 *        - Specify the reporter to be added to the new bug. See the username from the User Management page.<br>
 	 *        <br>
-	 * @param assignee
 	 *        - Specify the assignee to be added to the new bug. See the username from the User Management page.<br>
 	 *        <br>
 	 * @param attachmentPath

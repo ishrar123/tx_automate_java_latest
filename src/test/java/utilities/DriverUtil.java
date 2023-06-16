@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.github.bonigarcia.wdm.OperatingSystem;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -34,13 +35,8 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import mobileutil.AmazonAppFunctions;
-import mobileutil.MobileKeywords;
 import step_definitions.Hooks;
 
-/**
- * This DriverUtil class refer to browsers, os details, browser versions and will close all browsers
- */
 
 public class DriverUtil {
 
@@ -58,8 +54,6 @@ public class DriverUtil {
 	private static Map<String, WebDriver> drivers = new HashMap<String, WebDriver>();
 
 	private static HashMap<String, String> checkLogin = new HashMap<String, String>();
-	public static String appium_ip_address = mobileutil.MobileKeywords.GetValue("appium_ip_address");
-	public static String appium_port = mobileutil.MobileKeywords.GetValue("appium_port");
 	public static DesiredCapabilities capabilities = new DesiredCapabilities();
 
 	public static XSSFWorkbook wb;
@@ -72,152 +66,60 @@ public class DriverUtil {
 	public static String deviceName = null;
 	public static String osVersion = null;
 
-	/**
-	 * will use this getting browser(chrome, ie, ff)NorfsbK5jasabqG4jqR5
-	 * 
-	 * @param browserName
-	 * 
-	 * @return
-	 */
+	
 	private DriverUtil() {
 
 	}
+	public static WebDriver invokeLocalBrowserWeb(String osName, String browserName) {
+		WebDriver browser = null;
+		OperatingSystem operatingSystem;
+		try {
+			osName = osName.toUpperCase();
+			browserName = browserName.toUpperCase();
 
-	public static AndroidDriver<MobileElement> getMobileApp(String exeEnv) throws Exception {
+			switch (osName) {
+				case "MAC":
+					operatingSystem = OperatingSystem.MAC;
+					break;
+				case "WINDOWS":
+					operatingSystem = OperatingSystem.WIN;
+					break;
+				case "LINUX":
+					operatingSystem = OperatingSystem.LINUX;
+					break;
+				default:
+					throw new Exception("Invalid OS Name - " + osName);
+			}
 
-		if (exeEnv.equalsIgnoreCase(REMOTE)) {
-			FileInputStream fis = new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/ExcelFiles/MobileDevicesList.xlsx");
-			wb = new XSSFWorkbook(fis);
-			sheet1 = wb.getSheet("AndroidList");
-			int rowCount = sheet1.getLastRowNum();
-			for (int row = 1; row < rowCount; row++) {
-				String ExecuteFlag = sheet1.getRow(row).getCell(4).getStringCellValue();
-				if (ExecuteFlag.equals("Yes")) {
-					ODevice_Name = sheet1.getRow(row).getCell(1).getStringCellValue();
-					DataFormatter formatter = new DataFormatter();
-					String Device_Version = formatter.formatCellValue(sheet1.getRow(row).getCell(2));
-					System.out.println(ODevice_Name);
-					System.out.println(Device_Version);
-					DesiredCapabilities caps = new DesiredCapabilities();
-					caps.setCapability("device", ODevice_Name);
-					caps.setCapability("os_version", Device_Version);
-					// caps.setCapability("autoAcceptAlerts",true);
-					caps.setCapability("autoDismissAlerts", true);
-					caps.setCapability("name", "Bstack-[Java]-Mobile Amazon Test");
-					caps.setCapability("app", "bs://2ee16e84c872d2674fe0016525110b27543a7cd6");
-
-					GlobalUtil.mdriver = new AndroidDriver<MobileElement>(new URL("https://" + USER_NAME + ":" + ACCESS_KEY + "@hub-cloud.browserstack.com/wd/hub"), caps);
-					GlobalUtil.mdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-					AmazonAppFunctions.skipSignIn(ODevice_Name, NDevice_Name);
-					NDevice_Name = ODevice_Name;
+			browser = drivers.get(browserName);
+			if (browser == null)
+				switch (browserName) {
+					case "CHROME":
+						WebDriverManager.chromedriver().operatingSystem(operatingSystem).setup();
+						browser = new ChromeDriver();
+						break;
+					case "FIREFOX":
+						WebDriverManager.firefoxdriver().operatingSystem(operatingSystem).setup();
+						browser = new FirefoxDriver();
+						break;
+					default:
+						throw new Exception("Invalid Browser Name - " + browserName);
 				}
-			}
-
-			return GlobalUtil.mdriver;
-		}
-
-		else {
-
-			try {
-				capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "");
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, GlobalUtil.getCommonSettings().getAndroidName());
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, GlobalUtil.getCommonSettings().getAndroidVersion());
-				capabilities.setCapability("platformName", MobileKeywords.GetValue("platformName"));
-				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, MobileKeywords.GetValue("automationName"));
-				capabilities.setCapability(MobileCapabilityType.UDID, GlobalUtil.getCommonSettings().getAndroidID());
-				capabilities.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, MobileKeywords.GetValue("newCommandTimeout"));
-				capabilities.setCapability("appPackage", "in.amazon.mShop.android.shopping");
-				capabilities.setCapability("appActivity", "com.amazon.mShop.home.HomeActivity");
-				GlobalUtil.mdriver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} // else close
-		return GlobalUtil.mdriver;
-
-	}
-
-	public static AndroidDriver<MobileElement> invokeLocalMobileApp(String exeEnv, String deviceDetails) {
-
-		String deviceName = deviceDetails.split("_")[0];
-		String osVersion = deviceDetails.split("_")[1];
-
-		System.out.println(deviceName);
-		System.out.println(osVersion);
-		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, osVersion);
-		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, MobileKeywords.GetValue("platformName"));
-		capabilities.setCapability("appPackage", "in.amazon.mShop.android.shopping");
-		capabilities.setCapability("appActivity", "com.amazon.mShop.home.HomeActivity");
-		try {
-			GlobalUtil.mdriver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
-		} catch (MalformedURLException e) {
-			System.err.println("");
+			drivers.put(browserName, browser);
+			browser.manage().window().maximize();
+			browser.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			LogUtil.errorLog(DriverUtil.class, "Browser not launched. Please check the configuration ", e);
 			e.printStackTrace();
 		}
-		GlobalUtil.mdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		ExtentUtil.logger.get().log(Status.INFO, "<font color=blue>Execution Done By The Device:" + deviceDetails + "</font>");
-		return GlobalUtil.mdriver;
+		return browser;
 	}
 
-	public static AndroidDriver<MobileElement> invokeLocalMobileApp_1(String exeEnv, String deviceDetails) {
 
-		String deviceName = deviceDetails.split("_")[0];
-		String osVersion = deviceDetails.split("_")[1];
 
-		System.out.println(deviceName);
-		System.out.println(osVersion);
-		capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, osVersion);
-		capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
-		capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, MobileKeywords.GetValue("platformName"));
-		capabilities.setCapability("appPackage", "io.appium.android.apis");
-		capabilities.setCapability("appActivity", "io.appium.android.apis.ApiDemos");
-		try {
-			GlobalUtil.mdriver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
 
-		} catch (MalformedURLException e)
 
-		{
-			System.err.println("");
-			e.printStackTrace();
-		}
-		GlobalUtil.mdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		ExtentUtil.logger.get().log(Status.INFO, "<font color=blue>Execution Done By The Device:" + deviceDetails + "</font>");
-		return GlobalUtil.mdriver;
-	}
-
-	public static AndroidDriver<MobileElement> invokeBrowserStackMobileApp(String deviceDetails) {
-		deviceName = deviceDetails.split("_")[0];
-		osVersion = deviceDetails.split("_")[1];
-		DesiredCapabilities caps = new DesiredCapabilities();
-		caps.setCapability("device", deviceName);
-		caps.setCapability("os_version", osVersion);
-		caps.setCapability("autoDismissAlerts", true);
-		caps.setCapability("projectName", GlobalUtil.getCommonSettings().getProjectName());
-		caps.setCapability("buildName", GlobalUtil.getCommonSettings().getBuildNumber());
-		caps.setCapability("sessionName", Hooks.testCaseDescription);
-		caps.setCapability("app", GlobalUtil.getCommonSettings().getAndroidCloudDeviceID());
-		System.out.println(caps.getCapability("app"));
-
-		try {
-			GlobalUtil.mdriver = new AndroidDriver<MobileElement>(
-					new URL("http://" + GlobalUtil.getCommonSettings().getHostName() + ":" + GlobalUtil.getCommonSettings().getKey() + "@hub-cloud.browserstack.com/wd/hub"), caps);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-
-		GlobalUtil.mdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		return GlobalUtil.mdriver;
-	}
-
-	/**
-	 * @param browserName
-	 * 
-	 * @return
-	 */
+	
 	public static WebDriver getBrowser(String exeEnv, String browserName) {
 		WebDriver browser = null;
 		try {
@@ -325,23 +227,14 @@ public class DriverUtil {
 		return browser;
 	}
 
-	/**
-	 * will get browser type and version
-	 * 
-	 * @param browser
-	 * @param cap
-	 * 
-	 * @return
-	 */
+	
 	public static String getBrowserAndVersion(WebDriver browser, DesiredCapabilities cap) {
 		String browserversion;
 		String windows = "Windows";
 		String browsername = cap.getBrowserName();
-		// This block to find out IE Version number
 		if ("IE".equalsIgnoreCase(browsername)) {
 			String uAgent = (String) ((JavascriptExecutor) browser).executeScript("return navigator.userAgent;");
 			LogUtil.infoLog(DriverUtil.class, uAgent);
-			// uAgent return as "MSIE 8.0 Windows" for IE8
 			if (uAgent.contains("MSIE") && uAgent.contains(windows)) {
 				browserversion = uAgent.substring(uAgent.indexOf("MSIE") + 5, uAgent.indexOf(windows) - 2);
 			} else if (uAgent.contains("Trident/7.0")) {
@@ -350,24 +243,13 @@ public class DriverUtil {
 				browserversion = "0.0";
 			}
 		} else {
-			// Browser version for Firefox and Chrome
-			browserversion = cap.getVersion();
+						browserversion = cap.getVersion();
 		}
 		String browserversion1 = browserversion.substring(0, browserversion.indexOf('.'));
 		return browsername + " " + browserversion1;
 	}
 
-	/**
-	 * will get operating system information
-	 * 
-	 * @return
-	 */
-
-	/**
-	 * close all browsersw
-	 * 
-	 * @return
-	 */
+	
 	public static void closeAllDriver() {
 
 		drivers.entrySet().forEach(key -> {
@@ -405,4 +287,3 @@ public class DriverUtil {
 	}
 }
 
-// End class

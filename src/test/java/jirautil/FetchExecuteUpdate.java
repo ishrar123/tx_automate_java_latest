@@ -38,26 +38,18 @@ public class FetchExecuteUpdate {
 	private static String API_GET_EXECUTIONS = "{SERVER}/public/rest/api/1.0/executions/search/cycle/";
 	private static String API_UPDATE_EXECUTION = "{SERVER}/public/rest/api/1.0/execution/";
 
-	/** Declare JIRA,Zephyr URL,access and secret Keys */
-
-	// JIRA Cloud URL of the instance
+	
 	private static String jiraBaseURL = "https://testingxperts001.atlassian.net";
-	// Replace zephyr baseurl <ZAPI_Cloud_URL> shared with the user for ZAPI Cloud Installation
 	private static String zephyrBaseUrl = "https://prod-api.zephyr4jiracloud.com/connect";
-	// zephyr accessKey , we can get from Addons >> zapi section
 	private static String accessKey = "Njc1NTJjZTItMzVkZC0zYmEwLWI3N2UtZmQ3YWNkZDAwNTM2IGFkbWluIGJpbmR1";
-	// zephyr secretKey , we can get from Addons >> zapi section
 	private static String secretKey = "0GYaR3cNz-kw8tuQDKNBpirb-u6FnTIqtJDX-YBxCUw";
 
-	/** Declare parameter values here */
 	private static String userName = "bindu.poreddy@testingxperts.com";
 	@SuppressWarnings("unused")
 	private static String password = "Mango@123";
 	private static String cycleId = "0001503993710547-242ac112-0001";// after ccreating cycle check for example in inspect element: <li id ="cycle-0001503993710547-242ac112-0001">
 	private static String versionId = "-1";
-	private static String projectId = "10000"; // mouse hover of the main main menu any tab like Test andn inspect elemnt & check for example: href:
-												 // /plugins/servlet/ac/com.thed.zephyr.je/general-zephyr-welcome?user.key=admin&project.key=TES01&*******project.id=10000****&user.id=admin
-
+	private static String projectId = "10000"; 
 	static ZFJCloudRestClient client = ZFJCloudRestClient.restBuilder(zephyrBaseUrl, accessKey, secretKey, userName).build();
 	JwtGenerator jwtGenerator = client.getJwtGenerator();
 
@@ -65,22 +57,16 @@ public class FetchExecuteUpdate {
 	public static void main(String[] args) throws JSONException, URISyntaxException, ParseException, IOException {
 		final String issueSearchUri = API_SEARCH_ISSUES.replace("{SERVER}", jiraBaseURL);
 
-		/**
-		 * Get Execution Id's by CycleId and Add them to Ad Hoc cycle of UnScheduled Version
-		 */
+		
 		Map<String, String> executionIds = new HashMap<String, String>();
 		final String getExecutionsUri = API_GET_EXECUTIONS.replace("{SERVER}", zephyrBaseUrl) + cycleId + "?projectId=" + projectId + "&versionId=" + versionId;
 
 		executionIds = getExecutionsByCycleId(getExecutionsUri, client, accessKey);
 
-		/**
-		 * Bulk Update Executions with Status by Execution Id
-		 */
+		
 
 		JSONObject statusObj = new JSONObject();
-		// id = 1 --> pass
-		// id = 2 --> fail
-
+		
 		statusObj.put("id", "1");
 
 		JSONObject executeTestsObj = new JSONObject();
